@@ -1,0 +1,165 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-4 mb-4">
+      <div class="card shadow border-0 h-100 hover-shadow">
+        <div class="card-body text-center p-4">
+          <div class="preview-image mb-4">
+            <img [src]="product.image || 'assets/images/placeholder.png'"
+                 class="img-fluid rounded-3 shadow-sm"
+                 style="max-height: 300px; width: 100%; object-fit: cover;"
+                 alt="Hình ảnh sản phẩm">
+          </div>
+          <div class="text-muted">
+            <span class="badge bg-light text-dark">
+              <i class="fas fa-image me-1"></i>
+              Hình ảnh sản phẩm
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-8">
+      <div class="card shadow border-0 hover-shadow">
+        <div class="card-header bg-gradient-primary text-white py-3">
+          <h4 class="card-title mb-0 d-flex align-items-center text-black fw-bold">
+            <i class="fas fa-plus-circle me-2"></i>
+            Sửa thông tin sản phẩm
+          </h4>
+        </div>
+
+        <div class="card-body p-4">
+          <form (ngSubmit)="onSubmit()" [formGroup]="productForm" class="row g-4">
+
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="text"
+                       class="form-control form-control-lg"
+                       id="name"
+                       name="name"
+                       formControlName="name"
+                       [(ngModel)]="product.name"
+                       placeholder="Enter product name">
+                <label for="name">
+                  <i class="fas fa-box me-1"></i>
+                  Tên sản phẩm
+                </label>
+                <div class="invalid-feedback"
+                     *ngIf="!productForm.get('name')?.valid && productForm.get('name')?.touched">
+                  <i class="fas fa-exclamation-circle me-1"></i>
+                  Tên sản phẩm là bắt buộc (ít nhất 6 ký tự)
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-floating">
+                <select class="form-select form-select-lg"
+                        id="category"
+                        name="category"
+                        formControlName="category"
+                        [(ngModel)]="product.category">
+                  <option value="" disabled>Chọn danh mục</option>
+                  <option *ngFor="let category of categories"
+                          [value]="category._id">
+                    {{category.name}}
+                  </option>
+                </select>
+                <label for="category">
+                  <i class="fas fa-tag me-1"></i>
+                  Danh mục
+                </label>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="number"
+                       class="form-control form-control-lg"
+                       id="price"
+                       name="price"
+                       formControlName="price"
+                       [(ngModel)]="product.price"
+                       placeholder="Enter price">
+                <label for="price">
+                  <i class="fas fa-dollar-sign me-1"></i>
+                  Giá
+                </label>
+                <div class="invalid-feedback"
+                     *ngIf="!productForm.get('price')?.valid && productForm.get('price')?.touched">
+                  <i class="fas fa-exclamation-circle me-1"></i>
+                  Giá là bắt buộc
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="text"
+                       class="form-control form-control-lg"
+                       id="image"
+                       name="image"
+                       formControlName="image"
+                       [(ngModel)]="product.image"
+                       placeholder="Enter image URL">
+                <label for="image">
+                  <i class="fas fa-image me-1"></i>
+                  URL hình ảnh
+                </label>
+                <div class="invalid-feedback"
+                     *ngIf="!productForm.get('image')?.valid && productForm.get('image')?.touched">
+                  <i class="fas fa-exclamation-circle me-1"></i>
+                  URL hình ảnh là bắt buộc
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="form-floating">
+                <textarea class="form-control form-control-lg"
+                          id="desc"
+                          name="desc"
+                          formControlName="desc"
+                          [(ngModel)]="product.desc"
+                          placeholder="Enter description"
+                          style="height: 120px; resize: none;"></textarea>
+                <label for="desc">
+                  <i class="fas fa-align-left me-1"></i>
+                  Mô tả
+                </label>
+                <div class="invalid-feedback"
+                     *ngIf="!productForm.get('desc')?.valid && productForm.get('desc')?.touched">
+                  <i class="fas fa-exclamation-circle me-1"></i>
+                  Mô tả là bắt buộc
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 d-flex justify-content-end gap-3 mt-4">
+              <button type="button" class="btn btn-light btn-lg px-4" routerLink="/product-list">
+                <i class="fas fa-times me-2"></i>Hủy
+              </button>
+              <button type="submit" class="btn btn-primary btn-lg px-4">
+                <i class="fas fa-plus-circle me-2"></i>Lưu sản phẩm
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+      <div class="card mt-4 shadow border-0 hover-shadow" *ngIf="product.name">
+        <div class="card-header bg-light py-3">
+          <h6 class="mb-0 d-flex align-items-center">
+            <i class="fas fa-code me-2"></i>
+            Dữ liệu xem trước
+          </h6>
+        </div>
+        <div class="card-body">
+          <pre class="mb-0 bg-light p-3 rounded">{{ product | json }}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

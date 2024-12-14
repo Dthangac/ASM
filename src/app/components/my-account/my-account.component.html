@@ -1,0 +1,19 @@
+<div class="my-account">
+  <h2 class="account-info-title">Thông tin tài khoản</h2>
+  <div class="account-info">
+    <p><strong>Tên Tài khoản:</strong> {{ user.name }}</p>
+    <p><strong>Họ và tên:</strong> {{ user.fullname }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Quyền hạn:</strong> {{ user.admin ? 'Admin' : 'User' }}</p>
+    <p><strong>Ảnh đại diện:</strong> <img [src]="user.image ? user.image : 'assets/images/default-avatar.png'" alt="Ảnh đại diện" class="account-image"></p>
+  </div>
+  <h2 class="order-history-title">Lịch sử mua hàng</h2>
+  <div class="order-history" *ngFor="let order of orders">
+    <p><strong>Ngày mua:</strong> {{ order.date }}</p>
+    <p><strong>Tổng giá:</strong> {{ order.total }}</p>
+    <p><strong>Chi tiết:</strong></p>
+    <ul>
+      <li *ngFor="let item of order.items">{{ item.product }} ({{ item.quantity }})</li>
+    </ul>
+  </div>
+</div>

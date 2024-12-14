@@ -1,0 +1,63 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-8">
+      <div class="card shadow border-0 hover-shadow">
+        <div class="card-header bg-gradient-primary text-black py-3">
+          <h4 class="card-title mb-0 d-flex align-items-center">
+            <i class="fas fa-edit me-2"></i>
+            Sửa danh mục: <span class="ms-2 text-primary fw-bold">{{category.name}}</span>
+          </h4>
+        </div>
+        <div class="card-body p-4">
+          <div class="alert alert-info mb-4 d-flex align-items-center">
+            <i class="fas fa-info-circle me-2 fs-5"></i>
+            <span>Bạn đang chỉnh sửa danh mục "<strong>{{category.name}}</strong>"</span>
+          </div>
+
+          <form (ngSubmit)="onSubmit()" [formGroup]="categoryForm" class="row g-4">
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="text"
+                       class="form-control form-control-lg"
+                       id="name"
+                       name="name"
+                       formControlName="name"
+                       [(ngModel)]="category.name"
+                       placeholder="Enter category name">
+                <label for="name">
+                  <i class="fas fa-folder me-1"></i>
+                  Tên danh mục mới
+                </label>
+                <div class="invalid-feedback"
+                     *ngIf="categoryForm.get('name')?.invalid && categoryForm.get('name')?.touched">
+                  <i class="fas fa-exclamation-circle me-1"></i>
+                  Tên danh mục là bắt buộc (ít nhất 6 ký tự)
+                </div>
+              </div>
+            </div>
+            <div class="col-12 d-flex justify-content-end gap-3 mt-4">
+              <button type="button" class="btn btn-light btn-lg px-4 hover-shadow">
+                <i class="fas fa-times me-2" routerLink="/category-list" routerLinkActive="router-link-active"></i>Hủy
+              </button>
+              <button type="submit" class="btn btn-primary btn-lg px-4 hover-shadow">
+                <i class="fas fa-save me-2"></i>Lưu thay đổi
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="card mt-4 shadow border-0 hover-shadow" *ngIf="category?.name">
+        <div class="card-header bg-light py-3">
+          <h6 class="mb-0 d-flex align-items-center">
+            <i class="fas fa-code me-2"></i>
+            Dữ liệu xem trước
+          </h6>
+        </div>
+        <div class="card-body">
+          <pre class="mb-0 bg-light p-3 rounded">{{ category | json }}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

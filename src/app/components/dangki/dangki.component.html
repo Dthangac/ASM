@@ -1,0 +1,87 @@
+<div class="gray py-3">
+  <div class="container">
+    <div class="row">
+      <div class="colxl-12 col-lg-12 col-md-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">Trang chủ</li>
+            <li class="breadcrumb-item">Đăng nhập</li>
+            <li class="breadcrumb-item active" aria-current="page"><a href="#">Đăng kí</a></li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mx-auto mt-5">
+  <form (ngSubmit)="onRegister()" [formGroup]="registerF" class="border p-3 rounded shadow-lg bg-white">
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label for="name" class="text-dark">Tên đăng nhập</label>
+        <input type="text" class="form-control" formControlName="name" placeholder="Vd: Vũ Đức Thắng" id="name">
+        <div>
+          <div *ngIf="!registerF.get('name')?.valid && registerF.get('name')?.touched" class="text-danger">Tên
+            đăng nhâp tối thiểu 6 ký tự.</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label for="fullname" class="text-dark">Họ Và Tên</label>
+        <input type="text" class="form-control" formControlName="fullname" placeholder="Vd: Vũ Đức Thắng" id="fullname">
+        <div>
+          <div *ngIf="registerF.get('fullname')?.hasError('forbiddenWords') && registerF.get('fullname')?.touched"
+            class="text-danger">Họ Và Tên không được chứa từ 'ma túy' hoặc 'hàng trắng'.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email" class="text-dark">Email *</label>
+      <input type="text" class="form-control" formControlName="email" placeholder="name@email.com*" id="email">
+      <div>
+        <div *ngIf="registerF.get('email')?.hasError('email') && registerF.get('email')?.touched"
+          class="text-danger alert-dismissible fade show" role="alert">
+          <strong>Email </strong> không hợp lệ
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="password" class="text-dark">Mật khẩu *</label>
+        <input type="password" class="form-control" formControlName="password" placeholder="Password*" id="password">
+        <div>
+          <div *ngIf="!registerF.get('password')?.valid && registerF.get('password')?.touched"
+            class="text-danger">
+            Mật khẩu tối thiểu 6 ký tự.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="rePassword" class="text-dark">Nhập lại mật khẩu *</label>
+        <input type="password" class="form-control" formControlName="rePassword" placeholder="Confirm Password*" id="rePassword">
+        <div>
+          <div *ngIf="!registerF.get('rePassword')?.valid && registerF.get('rePassword')?.touched"
+            class="text-danger">
+            Mật khẩu tối thiểu 6 ký tự.
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div *ngIf="registerF.hasError('mismatch') && registerF.get('rePassword')?.touched">
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        Mật khẩu không khớp.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-md full-width bg-dark text-light fs-md ft-medium">Tạo tài
+        khoản</button>
+    </div>
+    <div class="border p-4 rounded" role="alert">
+      Bạn đã có tài khoản? <a [routerLink]="['/login']" routerLinkActive="router-link-active">Nhấn vào đây</a> để đăng nhập
+    </div>
+  </form>

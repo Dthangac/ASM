@@ -1,0 +1,62 @@
+<nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Thanh điều hướng Furni">
+
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['/']">Furni<span>.</span></a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+      aria-controls="navbarsFurni" aria-expanded="false" aria-label="Chuyển đổi điều hướng">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="input-group" style="width: 250px; height: 40px; margin: auto;">
+      <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm..." (input)="searchProducts($event)" style="height: 40px;">
+      <button class="btn btn-primary" title="Tìm kiếm sản phẩm" style="border-radius: 0 20px 20px 0; height: 40px;">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbarsFurni">
+      <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Trang chủ</a>
+        </li>
+        <li class="nav-item"><a class="nav-link" [routerLink]="['/shop']" routerLinkActive="active">Cửa hàng</a></li>
+        <li class="nav-item"><a class="nav-link" [routerLink]="['/about']" routerLinkActive="active">Về chúng tôi</a></li>
+        <li class="nav-item"><a class="nav-link" [routerLink]="['/services']" routerLinkActive="active">Dịch vụ</a></li>
+        <li class="nav-item"><a class="nav-link" [routerLink]="['/blog']" routerLinkActive="active">Tin tức</a></li>
+        <li class="nav-item"><a class="nav-link" [routerLink]="['/contact']" routerLinkActive="active">Liên hệ</a></li>
+
+
+
+
+        <li class="nav-item dropdown">
+          <a *ngIf="isADM" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Quản lý
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="['/product']">Sản phẩm</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/category']">Danh mục</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-user"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li *ngIf="isLogin" class="dropdown-item"><a>Xin Chào {{isLogin.fullname}}</a></li>
+            <li><a *ngIf="isLogin" class="dropdown-item" [routerLink]="['/my-account']">Tài khoản</a></li>
+            <li><a *ngIf="isLogin" class="dropdown-item" (click)="onLogout()">Đăng xuất</a></li>
+            <li><a *ngIf="!isLogin" class="dropdown-item" [routerLink]="['/login']">Đăng nhập</a></li>
+            <li><a *ngIf="!isLogin" class="dropdown-item" [routerLink]="['/dangki']">Đăng Kí</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" [routerLink]="['/cart']"><img src="assets/images/cart.svg" alt="Giỏ hàng"></a></li>
+      </ul>
+
+
+    </div>
+  </div>
+
+</nav>
